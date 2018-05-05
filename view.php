@@ -22,8 +22,8 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
+require(__DIR__.'/../../config.php');
+require_once($CFG->dirroot.'/mod/subcourse/locallib.php');
 require_once($CFG->libdir.'/gradelib.php');
 
 $id = required_param('id', PARAM_INT);
@@ -86,13 +86,13 @@ if ($refcourse and !empty($subcourse->instantredirect)) {
 
 echo $OUTPUT->header();
 
-echo $OUTPUT->heading($subcourse->name);
+echo $OUTPUT->heading(format_string($subcourse->name));
 echo $OUTPUT->box(format_module_intro('subcourse', $subcourse, $cm->id));
 
 if ($refcourse) {
     $refcourseurl = new moodle_url('/course/view.php', array('id' => $refcourse->id));
     $refcourselink = array(
-        'name' => $refcourse->fullname,
+        'name' => format_string($refcourse->fullname),
         'href' => $refcourseurl->out(),
     );
 
